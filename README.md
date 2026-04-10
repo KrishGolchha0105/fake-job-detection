@@ -54,7 +54,7 @@ Fake job postings are increasingly common and can lead to scams or data theft. T
 1. User enters a job description  
 2. Text is transformed using TF-IDF vectorizer  
 3. Model predicts Fake or Real  
-4. Confidence score is displayed  
+4. Confidence score is displayed ( It indicate percentage of fraud , if the job is real then also it will give fraudulent percentage )
 
 ---
 
