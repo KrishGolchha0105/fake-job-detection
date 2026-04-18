@@ -1,3 +1,4 @@
+
 from flask import Flask, request, jsonify, render_template
 import pickle
 
@@ -6,6 +7,9 @@ app = Flask(__name__)
 # Load model and vectorizer
 model = pickle.load(open("model.pkl", "rb"))
 tfidf = pickle.load(open("tfidf.pkl", "rb"))
+
+# Set your custom threshold
+THRESHOLD = 0.3
 
 # UI Route
 @app.route("/")
@@ -20,14 +24,14 @@ def predict():
     if not text:
         return render_template("index.html", prediction="Please enter text")
 
-    # Transform
+    # Transform input
     text_tfidf = tfidf.transform([text])
 
-    # Predict
-    prediction = model.predict(text_tfidf)[0]
+    # Get probability of class 1 (Fake Job)
     probability = model.predict_proba(text_tfidf)[0][1]
 
-    if prediction == 1:
+    # Apply custom threshold
+    if probability >= THRESHOLD:
         result = f"⚠️ Fake Job (Confidence: {probability:.2f})"
     else:
         result = f"✅ Real Job (Confidence: {probability:.2f})"
