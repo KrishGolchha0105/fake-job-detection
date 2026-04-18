@@ -63,6 +63,7 @@ Fake job postings are increasingly common and can lead to scams or data theft. T
 ### Clone Repository
 
 [https://github.com/KrishGolchha0105/fake-job-detection.git](https://github.com/KrishGolchha0105/fake-job-detection.git)
+
 cd fake-job-detection
 
 ### Install Dependencies
