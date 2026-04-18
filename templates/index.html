@@ -2,70 +2,136 @@
 <html>
 <head>
     <title>Fake Job Detection</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
     <style>
-        body {
-            font-family: Arial;
-            background: linear-gradient(to right, #667eea, #764ba2);
-            color: white;
-            text-align: center;
-            padding: 50px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
 
-        .container {
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .main {
+            display: flex;
+            width: 80%;
+            height: 80vh;
             background: white;
-            color: black;
-            padding: 30px;
-            border-radius: 10px;
-            width: 50%;
-            margin: auto;
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0px 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .left {
+            flex: 1;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .left h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .left p {
+            opacity: 0.8;
+        }
+
+        .right {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         textarea {
-            width: 90%;
+            width: 100%;
             height: 150px;
-            padding: 10px;
-            margin-top: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-top: 15px;
+            resize: none;
+            font-size: 14px;
         }
 
         button {
+            margin-top: 20px;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
             background: #667eea;
             color: white;
-            padding: 10px 20px;
-            border: none;
-            margin-top: 15px;
+            font-size: 16px;
             cursor: pointer;
+            transition: 0.3s;
         }
 
         button:hover {
             background: #5a67d8;
+            transform: scale(1.03);
         }
 
         .result {
             margin-top: 20px;
-            font-size: 18px;
+            padding: 15px;
+            border-radius: 10px;
             font-weight: bold;
+            text-align: center;
+        }
+
+        .fake {
+            background: #ffe5e5;
+            color: #d00000;
+        }
+
+        .real {
+            background: #e6ffed;
+            color: #008a2e;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="container">
-        <h1>🧠 Fake Job Detection System</h1>
-        <p>Enter job description below:</p>
+<div class="main">
+
+    <div class="left">
+        <h1>🧠 Fake Job Detection</h1>
+        <p>Detect fraudulent job postings using Machine Learning & NLP.</p>
+    </div>
+
+    <div class="right">
+        <h2>Analyze Job Description</h2>
 
         <form action="/predict" method="post">
-            <textarea name="text" placeholder="Paste job description here..."></textarea><br>
-            <button type="submit">Predict</button>
+            <textarea name="text" placeholder="Paste job description..."></textarea>
+            <button type="submit">Analyze</button>
         </form>
 
         {% if prediction %}
-        <div class="result">
+        <div class="result {% if 'Fake' in prediction %}fake{% else %}real{% endif %}">
             {{ prediction }}
         </div>
         {% endif %}
     </div>
+
+</div>
 
 </body>
 </html>
